@@ -26,7 +26,9 @@ var send201Request = function(response) {
   response.end();
 };
 
-var results = {results: [{username: 'Jono', message: 'Do my bidding!'}]};
+var results = {results: []};
+
+
 
 var requestHandler = function(request, response) {
   // Request and Response come from node's http module.
@@ -46,8 +48,6 @@ var requestHandler = function(request, response) {
   if (request.method == 'GET' && request.url == '/classes/messages') {
     console.log('Serving request type ' + request.method + ' for url ' + request.url);
 
-    console.log('Did this work? ');
-    // console.log('Response: ', response.useChunkedEncodingByDefault);
     // The outgoing status.
     var statusCode = 200;
 
@@ -63,6 +63,7 @@ var requestHandler = function(request, response) {
     // .writeHead() writes to the request line and headers of the response,
     // which includes the status and all headers.
     response.writeHead(statusCode, headers);
+    console.log('response-status code: ', response.statusCode);
 
     // Make sure to always call response.end() - Node may not send
     // anything back to the client until you do. The string you pass to
@@ -92,5 +93,4 @@ var requestHandler = function(request, response) {
 // // Another way to get around this restriction is to serve you chat
 // // client from this domain by setting up static file serving.
 
-
-module.exports = requestHandler;
+module.exports.requestHandler = requestHandler;
