@@ -26,6 +26,8 @@ var send201Request = function(response) {
   response.end();
 };
 
+var results = {results: [{username: 'Jono', message: 'Do my bidding!'}]};
+
 var requestHandler = function(request, response) {
   // Request and Response come from node's http module.
   //
@@ -44,6 +46,8 @@ var requestHandler = function(request, response) {
   if (request.method == 'GET' && request.url == '/classes/messages') {
     console.log('Serving request type ' + request.method + ' for url ' + request.url);
 
+    console.log('Did this work? ');
+    // console.log('Response: ', response.useChunkedEncodingByDefault);
     // The outgoing status.
     var statusCode = 200;
 
@@ -67,7 +71,7 @@ var requestHandler = function(request, response) {
     //
     // Calling .end "flushes" the response's internal buffer, forcing
     // node to actually send all the data over to the client.
-    var stringifiedResponse = JSON.stringify({results: []});
+    var stringifiedResponse = JSON.stringify(results);
     response.end(stringifiedResponse);
     
     } else if (request.method == 'POST' && request.url == '/classes/messages') {
